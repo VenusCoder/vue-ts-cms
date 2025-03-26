@@ -1,5 +1,8 @@
 import hyRequest from '../../service/index'
-export function loginAccountRequest(account:any) {
+import { Iaccount } from '@/types'
+
+
+export function loginAccountRequest(account:Iaccount) {
     return hyRequest.post({
         url:'/login',
         data:account

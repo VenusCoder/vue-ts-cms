@@ -26,23 +26,20 @@ import type { FormInstance, FormRules,ElForm, } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import {loginAccountRequest} from'../../../service/login/login'
 import useLoginStore from '@/stores/login/login'
+import type { Iaccount }from "@/types"
 
 
 
 
 const formRef=ref<IntanceType<typeof ElForm>>()
 
-interface RuleForm {
-  name: string
-  password: number
-}
 
-const account = reactive({
+const account = reactive<Iaccount>({
   name: '',
   password: '',
 })
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<Iaccount>>({
   name: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
     { min: 3, max: 8, message: '用户名字不少于3个字母,不超过8个字母', trigger: 'change' },
