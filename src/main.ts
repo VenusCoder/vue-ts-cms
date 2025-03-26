@@ -9,7 +9,7 @@ import router from './router'
 // 如果您正在使用CDN引入，请删除下面一行。
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-
+import 'element-plus/dist/index.css'
 
 
 const app = createApp(App)
