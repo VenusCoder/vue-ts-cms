@@ -4,10 +4,8 @@
   
 
     <div class="wrapper">
-      
-
      
-        <RouterLink to="/home">首页</RouterLink>
+        <RouterLink to="/main">首页</RouterLink>
         <RouterLink to="/login">登录</RouterLink>
       <RouterView />
     </div>

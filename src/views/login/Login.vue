@@ -23,7 +23,7 @@ import ChildLogin from"./c-cpn/ChildLogin.vue"
     
   align-items: center; /* 垂直居中 */
  
-    /* background: url('../../assets/img/1742868269891.jpg'); */
+background-color:#ef3ee4
 }
 
 </style>
