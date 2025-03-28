@@ -41,30 +41,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref,watch} from 'vue'
+import { ref, watch } from 'vue'
 
 import type { TabsPaneContext } from 'element-plus'
 import AccountLogin from './AccountLogin.vue'
 import PhoneLogin from './PhoneLogin.vue'
-import {localCache} from"@/tools/cache/cache"
-
+import { localCache } from '@/tools/cache/cache'
 
 const activeName = ref('account')
 const accountRef = ref('')
 
-const rempsw = ref<boolean>(localCache.getCache('rempsw')??false)
+const rempsw = ref<boolean>(localCache.getCache('rempsw') ?? false)
 const input = ref<InstanceType<typeof AccountLogin>>()
 
-
-  //记录记住密码按钮的状态是true or false
-watch(rempsw, (newValue)=>{
-  localCache.setCache('rempsw',newValue)
+//记录记住密码按钮的状态是true or false
+watch(rempsw, (newValue) => {
+  localCache.setCache('rempsw', newValue)
 })
 
-
-  //点击登录按钮的方法
+//点击登录按钮的方法
 function handleClick() {
   //1，获取子组件实力
+
+  console.log(accountRef.value, '888888')
 
   //2，调用子组件方法，获取到子组件的账号和密码
   accountRef.value?.loginAction(rempsw.value)
@@ -73,10 +72,8 @@ function handleClick() {
   //   console.log('记住账号和密码', rempsw.value)
   // }
 
-
-
   if (activeName.value === 'account') {
-    if(rempsw.value){
+    if (rempsw.value) {
       console.log('使用账号密码登录')
     }
   } else {

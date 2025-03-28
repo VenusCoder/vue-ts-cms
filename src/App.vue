@@ -1,18 +1,9 @@
-
-
 <template>
-  
-
-    <div class="wrapper">
-     
-        <RouterLink to="/main">首页</RouterLink>
-        <RouterLink to="/login">登录</RouterLink>
-      <RouterView />
-    </div>
-  
- 
-
-  <RouterView />
+  <div class="app">
+    <!-- <RouterLink to="/main">首页</RouterLink>
+    <RouterLink to="/login">登录</RouterLink> -->
+    <RouterView></RouterView>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,7 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <style scoped>
-.wrapper{
+.app {
   width: 100vw;
   height: 100vh;
   background-color: aquamarine;

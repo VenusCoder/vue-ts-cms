@@ -29,6 +29,7 @@ let useLoginStore = defineStore('login', {
       this.token = loginResults.token
 
       localCache.setCache('token', this.token)
+      console.log(555555, this.token)
       //在点击马上登陆跳转到页面之前，就要发送请求获取到用户的code权限等信息
       let userinforesult: any = await getUserInfoRequest(id)
       console.log('66666', userinforesult.data.data.id)
