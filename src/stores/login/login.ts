@@ -3,6 +3,7 @@ import { loginAccountRequest, getUserInfoRequest, getUserMenuRequest } from '@/s
 import type { Iaccount } from '@/types'
 import router from '@/router/index'
 import { localCache } from '@/tools/cache/cache'
+import type { RouteRecordRaw } from 'vue-router'
 
 interface IuserInfo {
   token: string
@@ -13,8 +14,8 @@ interface IuserInfo {
 let useLoginStore = defineStore('login', {
   state: (): IuserInfo => ({
     token: localCache.getCache('token') ?? '',
-    userInfo: {},
-    userMenu: [],
+    userInfo: localCache.getCache('userInfo') ?? {},
+    userMenu: localCache.getCache('userMenu') ?? [],
   }),
   actions: {
     async loginAccountActions(account: Iaccount) {
@@ -29,16 +30,40 @@ let useLoginStore = defineStore('login', {
       this.token = loginResults.token
 
       localCache.setCache('token', this.token)
-      console.log(555555, this.token)
-      //在点击马上登陆跳转到页面之前，就要发送请求获取到用户的code权限等信息
+      // console.log(555555, this.token)
+
+      //获取用户的详情信息，在点击马上登陆跳转到页面之前，就要发送请求获取到用户的code权限等信息
       let userinforesult: any = await getUserInfoRequest(id)
       console.log('66666', userinforesult.data.data.id)
-
       this.userInfo = userinforesult.data.data
-      console.log(this.userInfo.role.id, '9999')
+      const userInfo = this.userInfo
+      console.log(this.userInfo.role, '9999')
+
+      //获取用户的角色权限（菜单menus）
       let usermenuresult: any = await getUserMenuRequest(this.userInfo.role.id)
       console.log(usermenuresult.data, '10000')
       this.userMenu = usermenuresult.data
+      const userMenu = this.userMenu
+
+      //动态添加路由
+      const localRoutes: RouteRecordRaw[] = []
+      const files: Record<string, any> = import.meta.glob('../../router/main/**/*.ts', {
+        eager: true,
+      })
+      console.log(files, '0000')
+
+      for (let key in files) {
+        let module = files[key]
+        console.log(module.default, '77777')
+      }
+
+      //保存用户userinfo本地缓存,注意token不能在这里缓存本地，因为获取role信息请求的id需要在携带token传进去
+
+      // localCache.setCache('token', this.token)
+      // console.log(555555, this.token)
+
+      localCache.setCache('userInfo', userInfo)
+      localCache.setCache('userMenu', userMenu)
 
       router.push('/main')
     },

@@ -1,10 +1,16 @@
 <template>
   <div class="main">
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
+    <el-container class="main-content">
+      <el-aside :width="isFold ? '60px' : '200px'">
+        <main-menu :is-fold="isFold"></main-menu>
+      </el-aside>
       <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
+        <el-header>
+          <main-header @fold-change="handleFoldChange"></main-header>
+        </el-header>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
     <!-- <h2>主要</h2>
@@ -13,6 +19,18 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import MainMenu from '@/components/mian-menu/MainMenu.vue'
+import MainHeader from '@/components/main-header/MainHeader.vue'
+import { fa } from 'element-plus/es/locale/index.mjs'
+
+const isFold = ref(false)
+
+function handleFoldChange(flag: boolean) {
+  isFold.value = flag
+  console.log(isFold.value)
+}
+
 // import router from '@/router'
 // import { localCache } from '@/tools/cache/cache'
 
@@ -27,13 +45,16 @@
 <style lang="less" scoped>
 .main {
   height: 100%;
+
   .el-container {
     height: 100%;
     .el-aside {
-      width: 180px;
-      height: 100%;
-      background-color: #e3f;
+      background-color: #fffff3;
+      transition: width 0.4s ease;
     }
+  }
+  .main-content {
+    height: 100%;
   }
   .el-header {
     background-color: #ff44;
