@@ -10,6 +10,7 @@ import router from './router'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import 'element-plus/dist/index.css'
+import useLoginStore from './stores/login/login'
 
 const app = createApp(App)
 
@@ -18,6 +19,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(createPinia())
+const loginStore = useLoginStore()
+loginStore.loadLocalCacheActions()
 app.use(router)
 
 app.mount('#app')

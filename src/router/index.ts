@@ -27,6 +27,10 @@ const router = createRouter({
 
       component: Login,
     },
+    {
+      path: '/:pathMatch(.*)',
+      component: () => import('@/views/notfound/NotFound.vue'),
+    },
   ],
 })
 router.beforeEach((to) => {
