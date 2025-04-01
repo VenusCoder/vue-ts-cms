@@ -21,6 +21,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(createPinia())
 const loginStore = useLoginStore()
 loginStore.loadLocalCacheActions()
+
 app.use(router)
 
 app.mount('#app')

@@ -1,5 +1,6 @@
 import { LOGIN_TOKEN } from '@/global/constance'
 import { localCache } from '@/tools/cache/cache'
+import { firstMenu } from '@/tools/map-menu'
 import { createRouter, createWebHistory } from 'vue-router'
 const Login = () => import('@/views/login/Login.vue')
 const Main = () => import('@/views/main/Main.vue')
@@ -38,6 +39,9 @@ router.beforeEach((to) => {
   console.log('这是路由守卫的token', token)
   if (to.path === '/main' && !token) {
     return '/login'
+  }
+  if(to.path==='/main'){
+    return firstMenu.url
   }
 })
 

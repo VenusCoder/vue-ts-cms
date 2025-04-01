@@ -1,3 +1,4 @@
+import user from '@/router/main/system/user/user'
 import type { RouteRecordRaw } from 'vue-router'
 
 //加载本地路由
@@ -22,6 +23,8 @@ function loadLocalRoute() {
   return localRoutes
 }
 
+export let firstMenu:any=null
+
 export function mapMenuRoute(userMenu: any) {
   //加载本地路由
   const localRoutes = loadLocalRoute()
@@ -33,7 +36,36 @@ export function mapMenuRoute(userMenu: any) {
     for (let submenu of menu.children) {
       const route = localRoutes.find((item) => item.path === submenu.url)
       if (route) routes.push(route)
+        if(!firstMenu && route) firstMenu=submenu
     }
   }
   return routes
 }
+
+export function mapPathToMenu(path:string,userMenu:any[]){
+  for(let menu of userMenu)
+    for(let submenu of menu.children){
+  if(submenu.url===path) {
+    return submenu
+  }
+  }
+}
+
+export function mapPathToBread(path:string,userMenu:any[]){
+  const bread:any[]=[]
+ 
+
+  for(let menu of userMenu)
+    for(let submenu of menu.children){
+  
+  if(submenu.url===path) {
+    bread.push({name:menu.name,path:menu.url})
+   bread.push({name:submenu.name,path:submenu.url})
+  }
+  
+  }
+
+  return bread
+
+}
+

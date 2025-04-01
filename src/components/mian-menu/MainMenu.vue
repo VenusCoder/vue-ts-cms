@@ -2,7 +2,7 @@
   <div class="main">
     <span v-show="!isFold"><img src="../../assets/img/logo.png" alt="" />后台管理系统</span>
     <div class="menu">
-      <el-menu :collapse="isFold" default-active="2" class="el-menu-vertical-demo">
+      <el-menu :collapse="isFold" :default-active="defaultActive" class="el-menu-vertical-demo">
         <el-sub-menu :index="item.id + ''" v-for="item in userMenu" :key="item.id">
           <template #title>
             <el-icon>
@@ -24,9 +24,12 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import useLoginStore from '@/stores/login/login'
+import useLoginStore from '../../stores/login/login'
 // import router from '@/router'
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
+import { localCache } from '@/tools/cache/cache'
+import { firstMenu, mapPathToMenu} from '@/tools/map-menu'
+
 
 // 0.定义props
 defineProps({
@@ -37,8 +40,11 @@ defineProps({
 })
 
 const loginStore = useLoginStore()
-const userMenu = loginStore.userMenu.data
-console.log(userMenu, 'hhhh ')
+//添加动态路由的时候，这里容易出错，因为userMenu信息容易丢失，或者.data写错了
+
+const userMenu = loginStore.userMenu
+
+console.log(loginStore.userMenu, 'hhhh ')
 const router = useRouter()
 
 function handleMenuRouter(item: any) {
@@ -48,6 +54,15 @@ function handleMenuRouter(item: any) {
 
   router.push(url)
 }
+
+const route=useRoute()
+const pathMenu=mapPathToMenu(route.path,userMenu)
+
+const defaultActive=ref(pathMenu.id+'')
+
+console.log(route.path)
+
+
 </script>
 
 <style lang="less" scoped>

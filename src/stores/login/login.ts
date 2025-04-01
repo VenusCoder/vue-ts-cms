@@ -42,7 +42,8 @@ let useLoginStore = defineStore('login', {
       //这里有可能出错， 因为this.userMenu.data的data之前没加，是后来加的
       const userMenu = this.userMenu.data
 
-      //保存用户userinfo本地缓存,注意token不能在这里缓存本地，因为获取role信息请求的id需要在携带token传进去
+      //保存用户userinfo本地缓存,注意token不能在这里缓存本地，因为获取role信息请求
+      // 的id需要在携带token传进去
 
       // localCache.setCache('token', this.token)
       // console.log(555555, this.token)
@@ -63,7 +64,6 @@ let useLoginStore = defineStore('login', {
       const token = localCache.getCache('token')
       const userInfo = localCache.getCache('userInfo')
       const userMenu = localCache.getCache('userMenu')
-      console.log(token, '111111111111111,打印不到token')
       if (token && userInfo && userMenu) {
         this.token = token
         this.userInfo = userInfo

@@ -20,9 +20,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import MainMenu from '@/components/mian-menu/MainMenu.vue'
-import MainHeader from '@/components/main-header/MainHeader.vue'
-import { fa } from 'element-plus/es/locale/index.mjs'
+import MainMenu from '../../components/mian-menu/MainMenu.vue'
+import MainHeader from '../../components/main-header/MainHeader.vue'
 
 const isFold = ref(false)
 

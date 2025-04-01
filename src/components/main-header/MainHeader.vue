@@ -6,11 +6,10 @@
           <component :is="isFold ? 'Expand' : 'Fold'"> </component>
         </el-icon>
       </div>
-      <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-        <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-      </el-breadcrumb>
+    
+    
     </div>
+    <header-bread />
 
     <header-info />
   </div>
@@ -19,6 +18,7 @@
 import { ref, reactive } from 'vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import HeaderInfo from './header-info/HeaderInfo.vue'
+import HeaderBread  from './header-bread/HeaderBread.vue'
 const isFold = ref(false)
 const emit = defineEmits(['foldChange'])
 
