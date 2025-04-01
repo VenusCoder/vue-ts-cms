@@ -23,13 +23,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import useLoginStore from '../../stores/login/login'
 // import router from '@/router'
-import { useRouter,useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { localCache } from '@/tools/cache/cache'
-import { firstMenu, mapPathToMenu} from '@/tools/map-menu'
-
+import { firstMenu, mapPathToMenu } from '@/tools/map-menu'
 
 // 0.定义props
 defineProps({
@@ -55,14 +54,15 @@ function handleMenuRouter(item: any) {
   router.push(url)
 }
 
-const route=useRoute()
-const pathMenu=mapPathToMenu(route.path,userMenu)
+const route = useRoute()
 
-const defaultActive=ref(pathMenu.id+'')
+const defaultActive = computed(() => {
+  const pathMenu = mapPathToMenu(route.path, userMenu)
+
+  return pathMenu.id + ''
+})
 
 console.log(route.path)
-
-
 </script>
 
 <style lang="less" scoped>

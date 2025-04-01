@@ -23,7 +23,7 @@ function loadLocalRoute() {
   return localRoutes
 }
 
-export let firstMenu:any=null
+export let firstMenu: any = null
 
 export function mapMenuRoute(userMenu: any) {
   //加载本地路由
@@ -35,37 +35,39 @@ export function mapMenuRoute(userMenu: any) {
   for (let menu of userMenu) {
     for (let submenu of menu.children) {
       const route = localRoutes.find((item) => item.path === submenu.url)
-      if (route) routes.push(route)
-        if(!firstMenu && route) firstMenu=submenu
+      if (route) {
+        if (!routes.find((item) => item.path === menu.rul)) {
+          routes.push({ path: menu.url, redirect: route.path })
+        }
+        routes.push(route)
+      }
+      if (!firstMenu && route) firstMenu = submenu
     }
   }
   return routes
 }
 
-export function mapPathToMenu(path:string,userMenu:any[]){
-  for(let menu of userMenu)
-    for(let submenu of menu.children){
-  if(submenu.url===path) {
-    return submenu
-  }
-  }
+export function mapPathToMenu(path: string, userMenu: any[]) {
+  for (let menu of userMenu)
+    for (let submenu of menu.children) {
+      if (submenu.url === path) {
+        return submenu
+      }
+    }
 }
 
-export function mapPathToBread(path:string,userMenu:any[]){
-  const bread:any[]=[]
- 
+export function mapPathToBread(path: string, userMenu: any[]) {
+  const bread: any[] = []
 
-  for(let menu of userMenu)
-    for(let submenu of menu.children){
-  
-  if(submenu.url===path) {
-    bread.push({name:menu.name,path:menu.url})
-   bread.push({name:submenu.name,path:submenu.url})
-  }
-  
-  }
+  for (let menu of userMenu)
+    for (let submenu of menu.children) {
+      if (submenu.url === path) {
+        //一级导航
+        bread.push({ name: menu.name, path: menu.url })
+        //耳机导航
+        bread.push({ name: submenu.name, path: submenu.url })
+      }
+    }
 
   return bread
-
 }
-
